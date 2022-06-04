@@ -35,6 +35,7 @@ params:
 ```{r setup, include=FALSE}
 library(kableExtra)
 knitr::opts_chunk$set(echo = FALSE)
+devtools::install_github("haozhu233/kableExtra")
 lebron_data <- read.csv("C:/Users/Nuray/Desktop/project/ReproResearchFinalProj/lebron_james.csv")  
 ```
 
@@ -56,4 +57,16 @@ The data used in this statistic report is available at [Kaggle](https://www.kagg
 
 
 
+`r params$pts` %>%
+  kbl() %>%
+  kable_material_dark()
 
+
+`r params$reb` %>%
+  kbl() %>%
+  kable_material_dark()
+  
+  
+  `r params$ast` %>%
+  kbl() %>%
+  kable_material_dark()
