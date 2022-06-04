@@ -1,16 +1,59 @@
 ---
-title: "LeBron James"
+title: "LeBron James - Player Statistics for NBA Season `r params$season`"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 author: "Nuray Nasib & Aymir Aydinli"
-date: "6/1/2022"
-output: html_document
+output:
+  html_document
+params:
+  team_abbreviation:
+    label: "Team Abbreviation"
+    value: 400
+  age:
+    label: "Age"
+    value: 200
+  season:
+    label: "Season"
+    value: 198 
+  player_height:
+    label: "Player Height"
+    value: 201 
+  player_weight:
+    label: "Player Weight"
+    value: 201  
+  pts:
+    label: "Points"
+    value: 201
+  reb:
+    label: "Rebounds"
+    value: 201 
+  ast:
+    label: "Assist"
+    value: 201  
 ---
 
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+knitr::opts_chunk$set(echo = FALSE)
+lebron_data <- read.csv("C:/Users/Nuray/Desktop/project/ReproResearchFinalProj/lebron_james.csv")  
 ```
 
 # LeBron James
 
-LeBron James, (born Dec. 30, 1984, Akron, Ohio, U.S.), U.S. basketball player. A basketball prodigy, he was the consensus national high-school player of the year in 2003. He subsequently was selected first overall by the Cleveland Cavaliers in the 2003 NBA draft. James quickly established himself as one of the league’s dominant players. He was named Rookie of the Year in 2004 and later won multiple Most Valuable Player awards (2009, 2010, 2012, and 2013). After the 2009–10 season he signed with the Miami Heat, and he helped the franchise win championships in 2012 and 2013. He returned to the Cavaliers in 2014 and guided the team to its first NBA title in 2016. Two years later he joined the Los Angeles Lakers and helped them capture the championship in 2020. James also was a member of the U.S. Olympic basketball teams that won the bronze medal in 2004 and gold medals in 2008 and 2012.
+LeBron James, (born Dec. 30, 1984, Akron, Ohio, U.S.), U.S. basketball player. A basketball prodigy, he was the consensus national high-school player of the year in 2003. He subsequently was selected first overall by the Cleveland Cavaliers in the 2003 NBA draft. James quickly established himself as one of the league’s dominant players. He was named Rookie of the Year in 2004 and later won multiple Most Valuable Player awards (2009, 2010, 2012, and 2013). After the 2009–10 season he signed with the Miami Heat, and he helped the franchise win championships in 2012 and 2013. He returned to the Cavaliers in 2014 and guided the team to its first NBA title in 2016. Two years later he joined the Los Angeles Lakers and helped them capture the championship in 2020. James also was a member of the U.S. Olympic basketball teams that won the bronze medal in 2004 and gold medals in 2008 and 2012. [Source: Brittanica](https://www.britannica.com/biography/LeBron-James).
+
+
+<center>
+![](https://media.giphy.com/media/WUHR7AZH7fxHW/giphy.gif) 
+</center>
+
+
+# NBA Season `r params$season` summary in numbers
+
+
+The data used in this statistic report is available at [Kaggle](https://www.kaggle.com/datasets/justinas/nba-players-data).In the  `r params$season` season of NBA LeBron James was `r params$age` years old, weighed `r params$player_weight` pounds and had a height of `r params$player_height` cm. He played for the team `r params$team_abbreviation`.
+
+
+
 
 
