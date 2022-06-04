@@ -35,7 +35,7 @@ params:
 ```{r setup, include=FALSE}
 library(kableExtra)
 knitr::opts_chunk$set(echo = FALSE)
-devtools::install_github("haozhu233/kableExtra")
+#devtools::install_github("haozhu233/kableExtra")
 lebron_data <- read.csv("C:/Users/Nuray/Desktop/project/ReproResearchFinalProj/lebron_james.csv")  
 ```
 
@@ -52,21 +52,22 @@ LeBron James, (born Dec. 30, 1984, Akron, Ohio, U.S.), U.S. basketball player. A
 # NBA Season `r params$season` summary in numbers
 
 
-The data used in this statistic report is available at [Kaggle](https://www.kaggle.com/datasets/justinas/nba-players-data).In the  `r params$season` season of NBA LeBron James was `r params$age` years old, weighed `r params$player_weight` pounds and had a height of `r params$player_height` cm. He played for the team `r params$team_abbreviation`.
+The data used in this statistic report is available at [Kaggle](https://www.kaggle.com/datasets/justinas/nba-players-data).In the  `r params$season` season of NBA LeBron James was `r params$age` years old, weighed `r params$player_weight` pounds and had a height of `r params$player_height` cm. He played for the team `r params$team_abbreviation`. Important statistics of the player can be found below;
 
 
 
+```{r}
 
-`r params$pts` %>%
-  kbl() %>%
-  kable_material_dark()
+text_tbl <- data.frame(
+  Indicators = c("Points", "Rebounds", "Assists"),
+  Stats = c(params$pts, params$reb, params$ast
+  )
+)
 
+kbl(text_tbl) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "30em", background = "yellow")
 
-`r params$reb` %>%
-  kbl() %>%
-  kable_material_dark()
+```  
   
-  
-  `r params$ast` %>%
-  kbl() %>%
-  kable_material_dark()
