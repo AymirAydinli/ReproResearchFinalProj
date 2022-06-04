@@ -59,14 +59,14 @@ The data used in this statistic report is available at [Kaggle](https://www.kagg
 
 `r params$pts` %>%
   kbl() %>%
-  kable_material_dark()
+  kable_styling()
 
 
 `r params$reb` %>%
   kbl() %>%
-  kable_material_dark()
+  kable_styling()
   
   
   `r params$ast` %>%
   kbl() %>%
-  kable_material_dark()
+  kable_styling()
