@@ -3,7 +3,10 @@ title: "LeBron James - Player Statistics for NBA Season `r params$season`"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 author: "Nuray Nasib & Aymir Aydinli"
 output:
-  html_document
+  html_document:
+    theme: null
+    highlighy: null
+    css: styles.css
 params:
   team_abbreviation:
     label: "Team Abbreviation"
@@ -30,12 +33,28 @@ params:
     label: "Assist"
     value: 201  
 ---
+<style>
+p {
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0px 0px 12px 0px;
+}
+
+h1, h2, h3, h4, h5, h6, legend {
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+    color: #9F2042;
+}
+</style>
+
 
 
 ```{r setup, include=FALSE}
 library(kableExtra)
+library(ggplot2)
+library(dplyr)
+library(hrbrthemes)
 knitr::opts_chunk$set(echo = FALSE)
-devtools::install_github("haozhu233/kableExtra")
 lebron_data <- read.csv("C:/Users/Nuray/Desktop/project/ReproResearchFinalProj/lebron_james.csv")  
 ```
 
@@ -52,7 +71,7 @@ LeBron James, (born Dec. 30, 1984, Akron, Ohio, U.S.), U.S. basketball player. A
 # NBA Season `r params$season` summary in numbers
 
 
-The data used in this statistic report is available at [Kaggle](https://www.kaggle.com/datasets/justinas/nba-players-data).In the  `r params$season` season of NBA LeBron James was `r params$age` years old, weighed `r params$player_weight` pounds and had a height of `r params$player_height` cm. He played for the team `r params$team_abbreviation`.
+The data used in this statistic report is available at [Kaggle](https://www.kaggle.com/datasets/justinas/nba-players-data). In the  `r params$season` season of NBA LeBron James was `r params$age` years old, weighed `r params$player_weight` pounds and had a height of `r params$player_height` cm. He played for the team `r params$team_abbreviation`. Important statistics of the player can be found below;
 
 ```{r}
 
@@ -61,12 +80,26 @@ text_tbl <- data.frame(
   Stats = c(params$pts, params$reb, params$ast)
 )
 
-
 kbl(text_tbl) %>%
   kable_paper(full_width = F) %>%
   column_spec(1, bold = T, border_right = T) %>%
-  column_spec(2, width = "30em", background = "yellow")
+  column_spec(2, width = "40em", background = "beige")
+
+```  
 
 
 
+Let's see how LeBron James' points changed over the last 10 seasons in the line graph below;
+
+
+```{r, results='hide'}
+seasons <- lebron_data$season
+points <- lebron_data$pts
+data <- data.frame(seasons, points)
+
+data %>%
+  tail(10) %>%
+  ggplot(aes(x=seasons, y=points, group = 1)) +
+  geom_line( color="grey") +
+  geom_point(shape=21, color="black", fill="#69b3a2", size=3)
 ```
