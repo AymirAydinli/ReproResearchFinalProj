@@ -1,20 +1,33 @@
 
 library(dplyr)
 library(rmarkdown)
+library(rjson)
+library(tidyverse)
+library(hexbin)
+library(jsonlite)
+library(httr)
+library(scales)
 
 
-df <- read.csv("C:/Users/Nuray/Desktop/project/ReproResearchFinalProj/lebron_james.csv")
+df2 <- read.csv("C:/Users/Nuray/Desktop/project/ReproResearchFinalProj/lebron_james.csv")
 
-num <- nrow(df)
+num <- nrow(df2)
 
-age<-df$age
-season<-df$season
-player_height<-df$player_height
-player_weight<-df$player_weight
-pts<-df$pts
-reb<-df$reb
-ast<-df$ast
-team_abbreviation<-df$team_abbreviation
+age<-df2$age
+season<-df2$season
+player_height<-df2$player_height
+player_weight<-df2$player_weight
+pts<-df2$pts
+reb<-df2$reb
+ast<-df2$ast
+team_abbreviation<-df2$team_abbreviation
+net_rating<-df2$net_rating
+oreb_pct<-df2$oreb_pct
+dreb_pct<-df2$dreb_pct
+ts_pct<-df2$ts_pct
+ast_pct<-df2$ast_pct
+salary<-df2$salary
+ast_per_game_leader<-df2$ast_per_game_leader
 
 for(i in 1:num){render("C:/Users/Nuray/Desktop/project/ReproResearchFinalProj/project.Rmd",
                     output_file = paste0("report_", season[i], ".html"),
