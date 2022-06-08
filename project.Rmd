@@ -52,7 +52,16 @@ params:
     value: 301  
   ast_per_game_leader: 
     label: "Assist Leader"
-    value: 213     
+    value: 213   
+  most_ast_per_game_score:
+    label: "most_ast_per_game_score"
+    value: 456  
+  pts_per_game_leader:
+    label: "pts_per_game_leader"
+    value: 567
+  most_pts_per_game_score:
+    label: "most_pts_per_game_score"    
+    value: 678
 ---
 <style>
 p {
@@ -92,7 +101,10 @@ LeBron James, (born Dec. 30, 1984, Akron, Ohio, U.S.), U.S. basketball player. A
 # NBA Season `r params$season` summary in numbers
 
 
-The data used in this statistic report is available at [Kaggle](https://www.kaggle.com/datasets/justinas/nba-players-data). In the  `r params$season` season of NBA LeBron James was `r params$age` years old, weighed `r params$player_weight` pounds and had a height of `r params$player_height` cm. He played for the team `r params$team_abbreviation` and his salary was `r params$salary`. Let's begin with, probably, the most basic and important basketball stats: points, rebounds and assists. Table below shows average number of points scored, average number of rebounds grabbed, average number of assists distributed respectively by LeBron James in the season;
+## Basic Numbers
+
+
+The data used in this statistic report is available at [Kaggle](https://www.kaggle.com/datasets/justinas/nba-players-data). In the  `r params$season` season of NBA LeBron James was `r params$age` years old, weighed `r params$player_weight` pounds and had a height of `r params$player_height` cm. He played for the team `r params$team_abbreviation` and his salary was `r params$salary`$. Let's begin with, probably, the most basic and important basketball stats: points, rebounds and assists. Table below shows average number of points scored, average number of rebounds grabbed, average number of assists distributed respectively by LeBron James in the season;
 
 ```{r}
 
@@ -107,10 +119,70 @@ kbl(text_tbl) %>%
   column_spec(2, width = "40em", background = "beige")
 
 ```  
-According to the table above, average points scored was `r params$pts`, average number of rebounds grabbed was `r params$pts`, average number of assist distributed was `r params$ast`.
+According to the table above, average points scored was `r params$pts`, average number of rebounds grabbed was `r params$reb`, average number of assist distributed was `r params$ast`.
+
+We would like to present how he was doing compared to league leaders in points and assists numbers in corresponding season. Let's start with points;
+
+```{r}
+dara678<-data.frame(x1 = params$pts_per_game_leader,
+                   x2 = params$most_pts_per_game_score)
+colnames(dara678)<-c(colnames(dara678) <- c("Player","League Leaders Points"))
+rownames(dara678)<-c(params$season)
 
 
+kbl(dara678) %>%
+  kable_styling(fixed_thead = T)
+``` 
 
+In the season `r params$season` the league leader was `r params$pts_per_game_leader` with points per game totaling to `r params$most_pts_per_game_score`. Whereas LeBron James' points per game was `r params$pts`. The difference was `r params$pts - params$most_pts_per_game_score` 
+
+
+```{r}
+dara67<-data.frame(x1 = params$ast_per_game_leader,
+                   x2 = params$most_ast_per_game_score)
+colnames(dara67)<-c(colnames(dara67) <- c("Player","League Leaders Assists Per Game"))
+rownames(dara67)<-c(params$season)
+
+
+kbl(dara67) %>%
+  kable_styling(fixed_thead = T)
+``` 
+
+In the season `r params$season` the league leader was `r params$ast_per_game_leader` with assists per game totaling to `r params$most_ast_per_game_score`. Whereas LeBron James' assist per game was `r params$ast`. The difference was `r params$ast - params$most_ast_per_game_score`  
+
+In the table below we would like to give place to other important and interesting basketball player statistics. These include;
+
+<center>
+|   **Term**    |    Explanation                              |                 
+|:--------------|:--------------------------------------------|
+| **Net Rating**| Team's point differential per 100 possessions while the player is on the court|                 
+| **Offensive Rebound Percentage**| Percentage of available offensive rebounds the player grabbed while he was on the floor|    | **Defensive Rebound Percentage**| Percentage of available defensive rebounds the player grabbed while he was on the floor|  
+| **Shooting Efficiency**| Measure of the player's shooting efficiency that takes into account free throws, 2 and 3 point shots|
+</center> 
+
+```{r}
+#Percent creating function
+percent <- function(x, digits = 2, format = "f", ...) { 
+  paste0(formatC(x * 100, format = format, digits = digits, ...), "%")
+}
+
+#Table creating
+dara679<-data.frame(x1 = params$net_rating,
+                   x2 = params$oreb_pct,
+                   x3 = params$dreb_pct,
+                   x4 = percent(params$ts_pct))
+
+colnames(dara679)<-c(colnames(dara679) <- c("Net Rating","Offensive Rebound Percentage", "Defensive Rebound Percentage",
+                                            "Shooting Efficiency"))
+rownames(dara679)<-c(params$season)
+
+
+kbl(dara679) %>%
+  kable_styling(fixed_thead = T)
+```
+According to the table, in the season of `r params$season` James' net rating was `r params$net_rating`, offensive rebound percentage was `r params$oreb_pct`, defensive rebound percentage was `r params$dreb_pct`. Out of all the attempts to score a point he succeed in `r percent(params$ts_pct)` of them.
+
+## Line Graph Over the Years
 
 Let's see how LeBron James' points changed over the last 10 seasons in the line graph below;
 
@@ -127,8 +199,19 @@ data %>%
   geom_point(shape=21, color="black", fill="#69b3a2", size=3)
 ```
 
+We can see that in the last 10 seasons James' peak was in season 2017-18 with total points of 27.5 and his lowest was in the season 2020-21 with 25.0 points.
 
-```{r, results='hold', warning=FALSE}
+## LeBron James Career Shot Chart by Season
+
+A shot chart is a sort of visualization used in the NBA that allows coaches and players to identify the strong and weak parts of a player's game–shooting in particular. They provide coaches a sense of how effective a player's offensive is at getting shots in a specific region. Coaches can develop plays based on where players are making the most shots using frequency analytics, allowing them to be used more efficiently in a game.
+
+A shot chart is made up of two parts or layers. The first layer (at the bottom) is an image of a basketball court drawing (typically, half court). A scatterplot of shot locations is displayed on top of the court. When these two intersect, we may perceive the shots as dots on a basketball half court.
+
+While a shot chart is intended to emphasize a player's skills, it also identifies some of the gaps in player's game. A shot chart shows the same quantity of bad and good, and this can be a point of concentration and learning during player development.
+
+Data source for this part is NBA API. The NBA API (application programming interface) provides a wide range of data and player information. This data is the result of some of the most cutting-edge technology in player tracking and information management, which offers a solid foundation for how the NBA and teams collect information.
+
+```{r warning=FALSE, include=FALSE, results='hide'}
 
 
 library(tidyverse)
@@ -144,7 +227,7 @@ percent_formatter = function(x) {
 
 
 
-# playerID lookup function ------------------------------------------------
+# writing playerID lookup function 
 
 
 
@@ -220,7 +303,7 @@ find_player_id_by_name = function(n) {
 ```
 
 ```{r warning=FALSE, include=FALSE, results='hide'}
-# Court drawing function --------------------------------------------------
+# Writing court drawing function 
 
 
 
@@ -368,9 +451,8 @@ plot_court(court_themes$light)
 
 
 
-```{r, results='hold', warning=FALSE}
-# Shot location lookup function  ------------------------------------------
-
+```{r warning=FALSE, include=FALSE, results='hide'}
+# Writing Shot location lookup function 
 
 
 fetch_shots_by_player_id_and_season = function(player_id, season, season_type) {
@@ -460,8 +542,8 @@ fetch_shots_by_player_id_and_season = function(player_id, season, season_type) {
 
 
 
-```{r, results='hold', warning=FALSE}
-# Convert shot location data to binned-hexagon data  ----------------------
+```{r warning=FALSE, include=FALSE, results='hide'}
+# Converting shot location data to binned-hexagon data 
 
 
 
@@ -615,8 +697,8 @@ get_data <- function(id, seasons, season_type) {
 
 
 
-```{r, results='hold', warning=FALSE}
-# Chart making time -------------------------------------------------------
+```{r echo=FALSE, message=FALSE, warning=FALSE, results='hold'}
+# Making the Chart 
 
 
 
@@ -668,10 +750,41 @@ p <- plot_court(court_themes$light) +
         plot.caption = element_text(face = "italic", size = 8), 
         plot.margin = margin(0, -5, 0, -5, "cm")) +
   labs(title = "LeBron James",
-       subtitle =  params$season)
+       subtitle = params$season)
 
 ggdraw(p) + 
   theme(plot.background = element_rect(fill="floralwhite", color = NA))
 
 
 ```
+
+The shot chart represents LeBron James' Field Gold (FG) Percentage Points vs. League Average for each season. Red dots mean that LeBron James shoots better than the league average from that zone. Grey dots mean James shoots comparable to the league average from that zone. Blue dots mean James shoots worse than the league average from that zone.
+
+
+# Documentation and Systems Used
+
+**Systems used:** 
+
+* Windows 11 Home Version 21H2 
+* RStudio Version 1.4.1106
+* RMarkdown
+
+**Libraries needed to reproduce this file:**
+
+
+* kableExtra
+* ggplot2
+* dplyr
+* hrbrthemes
+* tidyverse
+* hexbin
+* jsonlite
+* httr
+* scales
+* prismatic
+* extrafont
+* cowplot
+* rmarkdown
+* rjson
+* Strings
+

@@ -7,6 +7,7 @@ library(hexbin)
 library(jsonlite)
 library(httr)
 library(scales)
+library(Strings)
 
 
 df2 <- read.csv("C:/Users/Nuray/Desktop/project/ReproResearchFinalProj/lebron_james.csv")
@@ -28,12 +29,20 @@ ts_pct<-df2$ts_pct
 ast_pct<-df2$ast_pct
 salary<-df2$salary
 ast_per_game_leader<-df2$ast_per_game_leader
+most_ast_per_game_score<-df2$most_ast_per_game_score
+pts_per_game_leader<-df2$pts_per_game_leader
+most_pts_per_game_score<-df2$most_pts_per_game_score
+salary<-df2$salary
 
 for(i in 1:num){render("C:/Users/Nuray/Desktop/project/ReproResearchFinalProj/project.Rmd",
                     output_file = paste0("report_", season[i], ".html"),
                     output_format = 'html_document',
                     params = list("season" = season[i], "age" = age[i], "player_height" = player_height[i],
                                   "player_weight" = player_weight[i], "pts" = pts[i], "reb" = reb[i],
-                                  "ast" = ast[i], "team_abbreviation" = team_abbreviation[i]))
+                                  "ast" = ast[i], "team_abbreviation" = team_abbreviation[i], "salary" = salary[i],
+                                  "pts_per_game_leader" = pts_per_game_leader[i], "ast_per_game_leader" = ast_per_game_leader[i],
+                                  "most_ast_per_game_score" = most_ast_per_game_score[i], "most_pts_per_game_score" = most_pts_per_game_score[i],
+                                  "net_rating" = net_rating[i], "oreb_pct" = oreb_pct[i], "dreb_pct" = dreb_pct[i],
+                                  "ts_pct" = ts_pct[i]))
 }
 
