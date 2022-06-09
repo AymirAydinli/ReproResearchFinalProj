@@ -1,0 +1,87 @@
+---
+title: "Player Statistics for NBA Seasons"
+author: "Nuray Nasib & Aymir Aydinli"
+date: "6/8/2022"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## LeBron James
+
+For the project we have decided on American basketball player LeBron James. We analyzed his statistics with tables, graphs and shot charts and created reproducible file that updates with given data. Data source for this part is Kaggle.
+
+<center>
+![](https://media.giphy.com/media/WUHR7AZH7fxHW/giphy.gif) 
+</center>
+
+
+## Basic Statistics
+
+After presenting basic data about James we move on to our first table;
+
+
+<img src="table_1.png" alt="table 1" width="800" style="float: center; margin-right: 10px;"/>
+
+
+## Basic Statistics - cont.
+
+<img src="table_2.png" alt="table 2" width="800" style="float: center; margin-right: 10px;"/>
+
+
+## Basic Statistics - cont.
+
+<img src="table_3.png" alt="table 3" width="800" style="float: center; margin-right: 10px;"/>
+
+## Line Graph Over the Years
+
+<img src="graph_1.png" alt="graph 1" width="600" style="float: right; margin-right: 100px;"/>
+
+## Career Shot Chart by Season
+
+Most players have their favorite spots on the court to shoot from – areas where they are most comfortable and confident in making shots. These statistics are available to us to see in the form of shot charts. While box scores count the number of makes and misses throughout the game, shot charts take it a step further by tracking the location of each shot.With that information, fans and analysts can pinpoint where players and teams are most effective with their shots.
+
+Data Source for this part is NBA API.
+
+<img src="nba.png" alt="nba" width="200" style="float: left; margin-left: 10px;"/>
+
+## Career Shot Chart by Season - cont.
+
+<img src="shotchart.png" alt="shotchart" width="600" style="float: center; margin-right: 10px;"/>
+
+## Documentation and Systems Used 
+
+<font size="2" align="center">
+
+**Systems used:** 
+
+* Windows 11 Home Version 21H2 
+* RStudio Version 1.4.1106
+* RMarkdown
+
+**Libraries needed to reproduce this file;**
+
+
+* kableExtra
+* ggplot2
+* dplyr
+* hrbrthemes
+* tidyverse
+* hexbin
+* jsonlite
+* httr
+* scales
+* prismatic
+* extrafont
+* cowplot
+* rmarkdown
+* rjson
+* Strings
+
+
+</font>
+
+
+
